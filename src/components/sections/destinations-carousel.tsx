@@ -451,23 +451,42 @@ const AutoImageCarousel = () => {
 export default function AICaseStudies() {
   return (
     <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
-      {/* Static gradient background - no animation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5" />
+      {/* Simplified animated gradient background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5"
+        style={{ willChange: 'opacity' }}
+      />
 
-      {/* Simplified single floating orb - reduced movement */}
+      {/* Simplified floating gradient orbs */}
       <motion.div
         className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
         animate={{
-          x: [0, 30, 0],
-          y: [0, -15, 0],
+          x: [0, 50, 0],
+          y: [0, -25, 0],
         }}
         transition={{
-          duration: 15,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut"
         }}
         style={{ willChange: 'transform' }}
       />
+
+      <motion.div
+        className="absolute bottom-20 right-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, -50, 0],
+          y: [0, 25, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1
+        }}
+        style={{ willChange: 'transform' }}
+      />
+
 
       <div className="relative z-10 container mx-auto px-4">
         <div className="text-center mb-4">
@@ -519,6 +538,44 @@ export default function AICaseStudies() {
           </motion.div>
         </div>
 
+        {/* NEW: Scroll Animation Subsection */}
+        <div className="mb-16">
+          <ContainerScroll
+            titleComponent={
+              <div className="space-y-2 mb-12">
+                <motion.h3 
+                  className="text-4xl md:text-6xl font-bold font-devanagari bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ backgroundSize: "200% auto" }}
+                  animate={{
+                    backgroundPosition: ["0% center", "200% center", "0% center"]
+                  }}
+                >
+                  Wondering
+                </motion.h3>
+                <motion.h3 
+                  className="text-3xl md:text-5xl font-bold font-devanagari bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  style={{ backgroundSize: "200% auto" }}
+                  animate={{
+                    backgroundPosition: ["0% center", "200% center", "0% center"]
+                  }}
+                >
+                  Unmatched Deals Kaise ?
+                </motion.h3>
+              </div>
+            }
+          >
+            <AutoImageCarousel />
+          </ContainerScroll>
+        </div>
+        
         {/* Rotating carousel with mobile-optimized padding */}
         <div className="w-full max-w-7xl mx-auto h-[600px] md:h-[700px] pb-[45rem] sm:pb-[50rem] md:pb-[56rem]">
           <ThreeDCarousel />

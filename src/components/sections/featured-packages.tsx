@@ -228,9 +228,9 @@ const FeaturedPackages = () => {
                   </div>
                 </motion.div>
 
-                {/* Back Side: Content flips in - optimized for mobile with scrollable content */}
+                {/* Back Side: Content flips in - reduced padding on mobile */}
                 <motion.div
-                  className="p-4 sm:p-8 lg:p-12 flex flex-col absolute inset-0 backface-hidden bg-card overflow-y-auto"
+                  className="p-4 sm:p-8 lg:p-12 flex flex-col absolute inset-0 backface-hidden bg-card"
                   style={{ 
                     backfaceVisibility: 'hidden', 
                     transformStyle: 'preserve-3d', 
@@ -242,29 +242,29 @@ const FeaturedPackages = () => {
                   animate={isFlipped ? 'front' : 'back'}
                   transition={flipTransition}
                 >
-                  <div className={`transition-opacity duration-300 ${isFlipped ? 'opacity-100' : 'opacity-0'} h-full flex flex-col`}>
-                    <p className="text-xs sm:text-sm font-semibold text-primary tracking-widest mb-2">{pkg.label}</p>
-                    <h3 className="font-display text-lg sm:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2 leading-tight">{pkg.title}</h3>
-                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-3 sm:mb-6">
+                  <div className={`transition-opacity duration-300 ${isFlipped ? 'opacity-100' : 'opacity-0'}`}>
+                    <p className="text-xs sm:text-sm font-semibold text-primary tracking-widest mb-2 sm:mb-4">{pkg.label}</p>
+                    <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2 leading-tight">{pkg.title}</h3>
+                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-4 sm:mb-6">
                       {pkg.year} &nbsp; | &nbsp; {pkg.type}
                     </p>
-                    <div className="border-t border-border/50 my-2 sm:my-4" />
-                    <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 flex-shrink-0">
+                    <div className="border-t border-border/50 my-4 sm:my-6" />
+                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                       {pkg.highlights.map((highlight, i) => (
-                        <p key={i} className="text-xs sm:text-sm text-muted-foreground flex items-start leading-relaxed">
-                          <span className="text-primary mr-2 mt-0.5 flex-shrink-0">-</span>
+                        <p key={i} className="text-sm text-muted-foreground flex items-start leading-relaxed">
+                          <span className="text-primary mr-3 mt-0.5 sm:mt-1 flex-shrink-0">-</span>
                           <span className="leading-relaxed">{highlight}</span>
                         </p>
                       ))}
                     </div>
-                    <p className="font-body text-xs sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-auto flex-shrink-0">{pkg.description}</p>
-                    <div className="mt-auto pt-3 sm:pt-6 flex flex-col sm:flex-row justify-between items-end sm:items-center gap-3 sm:gap-0 flex-shrink-0">
-                      <div className="flex items-end gap-2 w-full sm:w-auto">
-                        <span className="font-display text-xl sm:text-3xl font-bold text-primary leading-none">{pkg.price}</span>
-                        <span className="text-sm sm:text-lg text-muted-foreground line-through leading-none">{pkg.originalPrice}</span>
+                    <p className="font-body text-sm sm:text-base text-muted-foreground leading-relaxed mb-auto">{pkg.description}</p>
+                    <div className="mt-4 sm:mt-auto pt-4 sm:pt-8 flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4 sm:gap-0">
+                      <div className="flex items-end gap-2 sm:gap-3 w-full sm:w-auto">
+                        <span className="font-display text-2xl sm:text-3xl font-bold text-primary leading-none">{pkg.price}</span>
+                        <span className="text-base sm:text-lg text-muted-foreground line-through leading-none">{pkg.originalPrice}</span>
                       </div>
                       <Button
-                        className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg px-4 sm:px-8 py-2.5 sm:py-4 text-xs sm:text-base font-semibold shadow-lg hover:shadow-accent/30 transition-all w-full sm:w-auto min-h-[44px]"
+                        className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-lg hover:shadow-accent/30 transition-all w-full sm:w-auto min-h-[44px]"
                       >
                         VIEW PACKAGE
                       </Button>

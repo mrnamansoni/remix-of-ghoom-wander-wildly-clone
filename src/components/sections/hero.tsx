@@ -130,9 +130,9 @@ export default function HeroSection() {
         transition={{ delay: 0.3, duration: 0.8 }}
         style={{ willChange: 'opacity, transform' }}>
 
-        {/* First line: "Ghoomo" - Larger mobile, original desktop */}
+        {/* First line: "Ghoomo" - Better mobile scaling */}
         <h1
-          className="text-6xl sm:text-8xl lg:text-[160px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[140px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
@@ -148,9 +148,9 @@ export default function HeroSection() {
           Ghoomo
         </h1>
         
-        {/* Second line: "Saste Me" - Larger mobile, original desktop */}
+        {/* Second line: "Saste Me" - Better mobile scaling */}
         <h1
-          className="text-5xl sm:text-6xl lg:text-[120px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight mt-1"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[110px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight mt-1"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
