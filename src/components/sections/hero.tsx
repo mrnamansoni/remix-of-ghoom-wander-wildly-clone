@@ -61,7 +61,7 @@ export default function HeroSection() {
       {/* Image Slideshow Background with parallax */}
       <motion.div
         className="absolute inset-0 z-0"
-        style={{ scale }}>
+        style={{ scale, willChange: 'transform' }}>
         {slideshowImages.map((image, index) =>
         <motion.div
           key={index}
@@ -71,7 +71,8 @@ export default function HeroSection() {
             opacity: currentSlide === index ? 1 : 0,
             scale: currentSlide === index ? 1 : 1.1
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}>
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{ willChange: 'opacity, transform' }}>
 
             <img
             src={image}
@@ -121,16 +122,17 @@ export default function HeroSection() {
         )}
       </div>
 
-      {/* Masked Text at Top Center - Two Lines with different sizes */}
+      {/* Masked Text at Top Center - FIXED MOBILE SIZING */}
       <motion.div
-        className="absolute top-16 sm:top-24 left-0 right-0 z-30 flex flex-col items-center justify-center px-4"
+        className="absolute top-16 sm:top-20 md:top-24 left-0 right-0 z-30 flex flex-col items-center justify-center px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}>
+        transition={{ delay: 0.3, duration: 0.8 }}
+        style={{ willChange: 'opacity, transform' }}>
 
-        {/* First line: "Ghoomo" - Larger */}
+        {/* First line: "Ghoomo" - Better mobile scaling */}
         <h1
-          className="text-6xl sm:text-8xl lg:text-[160px] font-bold bg-clip-text text-transparent transition-all duration-200 scale-200 whitespace-nowrap leading-tight md:!text-7xl"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[140px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
@@ -138,16 +140,17 @@ export default function HeroSection() {
             animation: "gradient 3s ease infinite, backgroundMove 8s ease-in-out infinite",
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
-            WebkitTextStroke: "1px rgba(255, 193, 7, 0.6)",
-            filter: "brightness(1.1)"
+            WebkitTextStroke: "0.5px rgba(255, 193, 7, 0.6)",
+            filter: "brightness(1.1)",
+            willChange: 'background-position'
           }}>
 
           Ghoomo
         </h1>
         
-        {/* Second line: "Saste Me" - Slightly smaller */}
+        {/* Second line: "Saste Me" - Better mobile scaling */}
         <h1
-          className="text-5xl sm:text-6xl lg:text-[120px] font-bold bg-clip-text text-transparent transition-all duration-2000 scale-100 whitespace-nowrap leading-tight mt-1 md:!text-7xl"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[110px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight mt-1"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
@@ -155,8 +158,9 @@ export default function HeroSection() {
             animation: "gradient 3s ease infinite, backgroundMove 8s ease-in-out infinite",
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
-            WebkitTextStroke: "1px rgba(255, 193, 7, 0.6)",
-            filter: "brightness(1.1)"
+            WebkitTextStroke: "0.5px rgba(255, 193, 7, 0.6)",
+            filter: "brightness(1.1)",
+            willChange: 'background-position'
           }}>
 
           Saste Me
@@ -169,38 +173,40 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
-        style={{ opacity }}>
+        style={{ opacity, willChange: 'opacity' }}>
         <div className="w-full h-[200px] sm:h-[300px] max-w-[800px] mx-auto">
           <ParticleTextEffect
             className="w-full h-full" />
         </div>
       </motion.div>
 
-      {/* Tagline at Bottom - Above Stats */}
+      {/* Tagline at Bottom - Above Stats - Better mobile spacing */}
       <motion.div
         className="absolute bottom-20 sm:bottom-24 left-0 right-0 z-30 flex justify-center px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.8 }}>
+        transition={{ delay: 0.7, duration: 0.8 }}
+        style={{ willChange: 'opacity, transform' }}>
 
         <TypingSubtitle subtitles={subtitles} />
       </motion.div>
 
-      {/* Transparent Statistics Bar */}
+      {/* Transparent Statistics Bar - Better mobile sizing */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-20 bg-transparent backdrop-blur-sm border-t border-white/5"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}>
+        transition={{ delay: 1, duration: 0.8 }}
+        style={{ willChange: 'opacity, transform' }}>
         <div className="container mx-auto px-4 py-3 sm:py-4">
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 md:gap-8">
             <motion.div
-              className="text-center min-w-[80px]"
+              className="text-center min-w-[70px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.5 }}>
 
-              <p className="text-lg sm:text-xl md:text-2xl text-primary !font-bold md:!text-[#19833e]">12,463+</p>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary font-bold md:!text-[#19833e]">12,463+</p>
               <p className="text-xs sm:text-sm text-muted-foreground sm:!text-[#e0a547]">Happy Travelers</p>
             </motion.div>
 
@@ -210,27 +216,27 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.3, duration: 0.5 }}>
 
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary md:!text-[#278c13]">4.5</p>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-primary md:!text-[#278c13]">4.5</p>
               <p className="text-xs sm:text-sm text-muted-foreground sm:!text-[#e0a647]">Rating</p>
             </motion.div>
 
             <motion.div
-              className="text-center min-w-[70px]"
+              className="text-center min-w-[60px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.4, duration: 0.5 }}>
 
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary md:!text-[#278c13]">230+</p>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-primary md:!text-[#278c13]">230+</p>
               <p className="text-xs sm:text-sm text-muted-foreground sm:!text-[#e0a647]">Destinations</p>
             </motion.div>
 
             <motion.div
-              className="text-center min-w-[70px]"
+              className="text-center min-w-[60px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.5, duration: 0.5 }}>
 
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary md:!text-[#278c13]">1,250</p>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-primary md:!text-[#278c13]">1,250</p>
               <p className="text-xs sm:text-sm text-muted-foreground sm:!text-[#d39c45]">This Month</p>
             </motion.div>
           </div>

@@ -98,7 +98,8 @@ const ThreeDCarousel: React.FC<ThreeDCarouselProps> = ({
           className="relative w-full h-full flex items-center justify-center overflow-visible"
           style={{
             perspective: isMobile ? "1200px" : "2000px",
-            transformStyle: "preserve-3d"
+            transformStyle: "preserve-3d",
+            willChange: 'transform'
           }}>
 
           <motion.div
@@ -108,7 +109,8 @@ const ThreeDCarousel: React.FC<ThreeDCarouselProps> = ({
               transform,
               rotateY: rotation,
               width: faceWidth,
-              transformStyle: "preserve-3d"
+              transformStyle: "preserve-3d",
+              willChange: 'transform'
             }}
             onDrag={(_, info) => {
               if (isCarouselActive) {
@@ -145,7 +147,8 @@ const ThreeDCarousel: React.FC<ThreeDCarouselProps> = ({
                     left: "50%",
                     top: "50%",
                     marginLeft: `-${faceWidth / 2}px`,
-                    marginTop: isMobile ? "-80px" : "-100px"
+                    marginTop: isMobile ? "-80px" : "-100px",
+                    willChange: 'transform'
                   }}>
 
                   <div
@@ -447,49 +450,42 @@ const AutoImageCarousel = () => {
 
 export default function AICaseStudies() {
   return (
-    <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden scroll-smooth">
-      {/* Animated gradient background */}
+    <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+      {/* Simplified animated gradient background */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"]
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{
-          backgroundSize: "400% 400%"
-        }} />
+        style={{ willChange: 'opacity' }}
+      />
 
-      {/* Floating gradient orbs */}
+      {/* Simplified floating gradient orbs */}
       <motion.div
         className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
         animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.2, 1]
+          x: [0, 50, 0],
+          y: [0, -25, 0],
         }}
         transition={{
           duration: 10,
           repeat: Infinity,
           ease: "easeInOut"
-        }} />
+        }}
+        style={{ willChange: 'transform' }}
+      />
 
       <motion.div
         className="absolute bottom-20 right-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl"
         animate={{
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.3, 1]
+          x: [0, -50, 0],
+          y: [0, 25, 0],
         }}
         transition={{
           duration: 12,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 1
-        }} />
+        }}
+        style={{ willChange: 'transform' }}
+      />
 
 
       <div className="relative z-10 container mx-auto px-4">

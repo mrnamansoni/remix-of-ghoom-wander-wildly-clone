@@ -18,8 +18,8 @@ const TaglineSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2,
+        delayChildren: 0.1
       }
     }
   };
@@ -27,17 +27,13 @@ const TaglineSection = () => {
   const wordVariants = {
     hidden: { 
       opacity: 0, 
-      y: 50,
-      rotateX: -90,
-      filter: "blur(10px)"
+      y: 30,
     },
     visible: { 
       opacity: 1, 
       y: 0,
-      rotateX: 0,
-      filter: "blur(0px)",
       transition: { 
-        duration: 0.8, 
+        duration: 0.6, 
         ease: "easeOut" 
       }
     }
@@ -45,8 +41,7 @@ const TaglineSection = () => {
 
   const floatingVariants = {
     animate: {
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
+      y: [0, -10, 0],
       transition: {
         duration: 4,
         repeat: Infinity,
@@ -63,6 +58,7 @@ const TaglineSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
+        style={{ willChange: 'opacity' }}
       />
 
       {/* PixelTrail with visible debug background - mobile optimized size */}
@@ -75,17 +71,19 @@ const TaglineSection = () => {
         />
       </div>
 
-      {/* Floating decorative elements - smaller on mobile */}
+      {/* Floating decorative elements - smaller on mobile, reduced animation */}
       <motion.div
         className="absolute top-10 sm:top-20 left-5 sm:left-10 w-20 sm:w-32 h-20 sm:h-32 bg-primary/10 rounded-full blur-3xl z-10 pointer-events-none"
         variants={floatingVariants}
         animate="animate"
+        style={{ willChange: 'transform' }}
       />
       <motion.div
         className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-24 sm:w-40 h-24 sm:h-40 bg-accent/10 rounded-full blur-3xl z-10 pointer-events-none"
         variants={floatingVariants}
         animate="animate"
         transition={{ delay: 1 }}
+        style={{ willChange: 'transform' }}
       />
 
       <motion.div
@@ -103,8 +101,8 @@ const TaglineSection = () => {
             className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold border border-primary/20 backdrop-blur-sm pointer-events-auto rounded-full"
             whileHover={{ 
               scale: 1.05, 
-              boxShadow: "0 0 30px rgba(241, 196, 15, 0.3)" 
             }}
+            style={{ willChange: 'transform' }}
           >
             <Sparkles className="w-3 sm:w-4 h-3 sm:h-4" />
             Your Adventure Awaits
@@ -122,8 +120,9 @@ const TaglineSection = () => {
           <br />
           <motion.span
             className="inline-block mt-2 sm:mt-4"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
+            style={{ willChange: 'transform' }}
           >
             Sahi रास्ते Hum बताएँगे :)
           </motion.span>
@@ -147,42 +146,17 @@ const TaglineSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="w-full sm:w-auto pointer-events-auto max-w-xs sm:max-w-none"
+            style={{ willChange: 'transform' }}
           >
             <Button 
               size="lg" 
               className="group relative w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg font-bold bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-full shadow-2xl overflow-hidden"
             >
-              {/* Animated background on hover */}
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-accent to-primary"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.6 }}
-              />
-              
               {/* Button content */}
               <span className="relative z-10 flex items-center gap-2 sm:gap-3">
                 SEE ALL PACKAGES
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
-                </motion.div>
+                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
               </span>
-
-              {/* Glow effect */}
-              <motion.span
-                className="absolute inset-0 rounded-full"
-                animate={{
-                  boxShadow: [
-                    "0 0 20px rgba(241, 196, 15, 0.5)",
-                    "0 0 40px rgba(241, 196, 15, 0.8)",
-                    "0 0 20px rgba(241, 196, 15, 0.5)"
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
             </Button>
           </motion.div>
         </motion.div>
@@ -192,19 +166,11 @@ const TaglineSection = () => {
           className="flex items-center justify-center gap-2 sm:gap-4 mt-12 sm:mt-16"
           initial={{ opacity: 0, scale: 0 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 0.8, duration: 0.4 }}
         >
-          <motion.div
-            className="h-px w-16 sm:w-20 bg-gradient-to-r from-transparent to-primary"
-            animate={{ width: ["0%", "100%"] }}
-            transition={{ duration: 1, delay: 1.5 }}
-          />
+          <div className="h-px w-16 sm:w-20 bg-gradient-to-r from-transparent to-primary" />
           <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-          <motion.div
-            className="h-px w-16 sm:w-20 bg-gradient-to-l from-transparent to-primary"
-            animate={{ width: ["0%", "100%"] }}
-            transition={{ duration: 1, delay: 1.5 }}
-          />
+          <div className="h-px w-16 sm:w-20 bg-gradient-to-l from-transparent to-primary" />
         </motion.div>
       </motion.div>
     </section>

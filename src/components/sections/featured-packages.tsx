@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { PixelTrail } from '@/components/ui/pixel-trail';
 
 type Package = {
@@ -103,14 +103,24 @@ const FeaturedPackages = () => {
   const flipVariants = {
     front: { rotateY: 0 },
     back: { rotateY: 180 },
-    exit: { rotateY: 360 }
   };
 
   const flipTransition = {
     duration: 0.6,
     ease: [0.22, 1, 0.36, 1],
-    transformPerspective: 1000
   };
+
+  // Detect if mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 bg-background/50 overflow-hidden" style={{ y }}>
@@ -128,30 +138,78 @@ const FeaturedPackages = () => {
         <div className="space-y-8 sm:space-y-12 lg:space-y-20">
           {packagesData.map((pkg, index) => {
             const [isFlipped, setIsFlipped] = useState(false);
+            const cardRef = useRef<HTMLDivElement>(null);
+
+            // Scroll-based flip for mobile only
+            useEffect(() => {
+              if (!isMobile) return;
+
+              const observer = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                      setIsFlipped(true);
+                      // Auto flip back after 4 seconds
+                      setTimeout(() => {
+                        setIsFlipped(false);
+                      }, 4000);
+                    }
+                  });
+                },
+                {
+                  threshold: [0.5, 0.6, 0.7],
+                  rootMargin: "-100px 0px -100px 0px"
+                }
+              );
+
+              if (cardRef.current) {
+                observer.observe(cardRef.current);
+              }
+
+              return () => {
+                if (cardRef.current) {
+                  observer.unobserve(cardRef.current);
+                }
+              };
+            }, [isMobile]);
 
             return (
               <motion.div
                 key={pkg.title}
+                ref={cardRef}
                 variants={cardVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
                 custom={index}
                 whileHover={{ 
-                  scale: 1.02, 
-                  rotateX: 5, 
-                  rotateY: 5,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                  scale: isMobile ? 1 : 1.02,
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative bg-card border border-border rounded-xl overflow-hidden shadow-2xl shadow-black/30 group touch-manipulation cursor-pointer perspective-1000 min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] max-w-[95%] sm:max-w-[90%] lg:max-w-[85%] mx-auto"
-                style={{ perspective: 1000 }}
-                onHoverStart={() => setIsFlipped(true)}
-                onHoverEnd={() => setIsFlipped(false)}
+                className="relative bg-card border border-border rounded-xl overflow-hidden shadow-2xl shadow-black/30 group touch-manipulation cursor-pointer min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] max-w-[95%] sm:max-w-[90%] lg:max-w-[85%] mx-auto"
+                style={{ 
+                  perspective: 1000,
+                  willChange: 'transform'
+                }}
+                onHoverStart={() => !isMobile && setIsFlipped(true)}
+                onHoverEnd={() => !isMobile && setIsFlipped(false)}
+                onClick={() => isMobile && setIsFlipped(!isFlipped)}
               >
+                {/* Mobile hint text */}
+                {isMobile && !isFlipped && (
+                  <div className="absolute top-4 right-4 z-50 bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                    Scroll to view details
+                  </div>
+                )}
+
                 {/* Front Side */}
                 <motion.div
                   className="absolute inset-0 backface-hidden"
-                  style={{ backfaceVisibility: 'hidden', transformStyle: 'preserve-3d', zIndex: isFlipped ? 0 : 1 }}
+                  style={{ 
+                    backfaceVisibility: 'hidden', 
+                    transformStyle: 'preserve-3d', 
+                    zIndex: isFlipped ? 0 : 1,
+                    willChange: 'transform'
+                  }}
                   variants={flipVariants}
                   initial="front"
                   animate={isFlipped ? 'back' : 'front'}
@@ -172,14 +230,19 @@ const FeaturedPackages = () => {
 
                 {/* Back Side: Content flips in - reduced padding on mobile */}
                 <motion.div
-                  className="p-4 sm:p-8 lg:p-12 flex flex-col absolute inset-0 backface-hidden"
-                  style={{ backfaceVisibility: 'hidden', transformStyle: 'preserve-3d', zIndex: isFlipped ? 1 : 0 }}
+                  className="p-4 sm:p-8 lg:p-12 flex flex-col absolute inset-0 backface-hidden bg-card"
+                  style={{ 
+                    backfaceVisibility: 'hidden', 
+                    transformStyle: 'preserve-3d', 
+                    zIndex: isFlipped ? 1 : 0,
+                    willChange: 'transform'
+                  }}
                   variants={flipVariants}
                   initial="back"
                   animate={isFlipped ? 'front' : 'back'}
                   transition={flipTransition}
                 >
-                  <div className={`opacity-0 ${isFlipped ? 'opacity-100 transition-opacity duration-500 delay-300' : ''}`}>
+                  <div className={`transition-opacity duration-300 ${isFlipped ? 'opacity-100' : 'opacity-0'}`}>
                     <p className="text-xs sm:text-sm font-semibold text-primary tracking-widest mb-2 sm:mb-4">{pkg.label}</p>
                     <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2 leading-tight">{pkg.title}</h3>
                     <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-4 sm:mb-6">
