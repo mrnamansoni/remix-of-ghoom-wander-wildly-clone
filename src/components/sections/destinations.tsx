@@ -228,7 +228,7 @@ const DestinationCard = ({ dest, index }: { dest: any; index: number }) => {
                 </p>
                 
                 <div className="mt-3 sm:mt-4 flex flex-wrap gap-1 sm:gap-2">
-                    {dest.tags.map((tag, i) => (
+                    {dest.tags.map((tag: string, i: number) => (
                         <motion.span 
                             key={tag} 
                             className="bg-muted px-2 py-1 rounded-md text-xs font-medium text-muted-foreground"

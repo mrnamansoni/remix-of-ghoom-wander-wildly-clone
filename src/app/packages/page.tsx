@@ -1,6 +1,10 @@
+"use client";
+
 import Header from "@/components/sections/header";
 import Footer from "@/components/sections/footer";
-import FeaturedPackages from "@/components/sections/featured-packages";
+import dynamic from "next/dynamic";
+
+const FeaturedPackages = dynamic(() => import("@/components/sections/featured-packages"), { ssr: false });
 import CommunityTrips from "@/components/sections/community-trips";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";

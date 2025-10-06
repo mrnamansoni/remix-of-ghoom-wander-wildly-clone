@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/sections/header";
 import Footer from "@/components/sections/footer";
 import Destinations from "@/components/sections/destinations";

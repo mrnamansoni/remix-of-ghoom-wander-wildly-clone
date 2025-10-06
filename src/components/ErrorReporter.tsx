@@ -11,16 +11,16 @@ type ReporterProps = {
 export default function ErrorReporter({ error, reset }: ReporterProps) {
   /* ─ instrumentation shared by every route ─ */
   const lastOverlayMsg = useRef("");
-  const pollRef = useRef<NodeJS.Timeout>();
+  const pollRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const inIframe = window.parent !== window;
     if (!inIframe) return;
 
-    const send = (payload: unknown) => window.parent.postMessage(payload, "*");
+    const send = (payload: unknown) => void window.parent.postMessage(payload, "*");
 
     const onError = (e: ErrorEvent) =>
-      send({
+      void send({
         type: "ERROR_CAPTURED",
         error: {
           message: e.message,
@@ -75,7 +75,8 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
   /* ─ extra postMessage when on the global-error route ─ */
   useEffect(() => {
     if (!error) return;
-    window.parent.postMessage(
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    void window.parent.postMessage(
       {
         type: "global-error-reset",
         error: {

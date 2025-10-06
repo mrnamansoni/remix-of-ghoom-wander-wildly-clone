@@ -7,8 +7,8 @@ const compat = new FlatCompat({
  
 const eslintConfig = [
   ...compat.config({
-    extends: ['next'],
-    plugins: ['import'],
+    extends: ['next', 'plugin:@typescript-eslint/recommended'],
+    plugins: ['import', '@typescript-eslint'],
   }),
   {
     rules: {
@@ -26,6 +26,14 @@ const eslintConfig = [
       'import/no-self-import': 'error',
       'import/no-cycle': 'error',
       'import/no-useless-path-segments': 'error',
+      "@typescript-eslint/no-unused-expressions": "off",
+    },
+  },
+  {
+    files: ["src/visual-edits/component-tagger-loader.js"],
+    rules: {
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/no-require-imports": "off",
     },
   },
 ]

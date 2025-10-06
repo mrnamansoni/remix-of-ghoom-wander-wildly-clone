@@ -125,9 +125,8 @@ const ThreeDCarousel: React.FC<ThreeDCarouselProps> = ({
                   rotateY: rotation.get() + info.velocity.x * velocityMultiplier,
                   transition: {
                     type: "spring",
-                    stiffness: isMobile ? 80 : 100,
-                    damping: isMobile ? 35 : 30,
-                    mass: 0.1
+                    stiffness: isMobile ? 120 : 150, // Increased stiffness
+                    damping: isMobile ? 25 : 20,   // Decreased damping
                   }
                 });
               }

@@ -30,6 +30,8 @@ import {
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef } from 'react';
 
+const MotionLink = motion.create(Link);
+
 const quickLinks = [
   'About Us',
   'Destinations',
@@ -76,7 +78,11 @@ const Footer = () => {
   const scrollToTopOpacity = useTransform(scrollY, [0, 300], [0, 1]);
   const scrollToTopScale = useTransform(scrollY, [0, 300], [0, 1]);
 
-  const handleSubmit = (e) => {
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
@@ -175,9 +181,9 @@ const Footer = () => {
                     animate={{ opacity: 1, x: 0 }} 
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Link href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
+                    <MotionLink href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
                       {link}
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -194,9 +200,9 @@ const Footer = () => {
                     animate={{ opacity: 1, x: 0 }} 
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Link href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
+                    <MotionLink href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
                       {dest}
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -256,7 +262,6 @@ const Footer = () => {
                         <Button
                           type="submit"
                           className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold rounded-lg shadow-md hover:shadow-primary/25 transition-all duration-300"
-                          whileTap={{ scale: 0.98 }}
                         >
                           <Send className="mr-2 h-4 w-4" />
                           Send Message
@@ -288,9 +293,9 @@ const Footer = () => {
                     animate={{ opacity: 1, x: 0 }} 
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Link href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
+                    <MotionLink href="#" className="hover:text-primary transition-colors block py-1" whileHover={{ x: 5 }}>
                       {policy}
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -346,11 +351,11 @@ const Footer = () => {
         <motion.div
           className="fixed bottom-6 right-6 z-50"
           initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: scrollToTopOpacity, scale: scrollToTopScale }}
+          style={{ opacity: scrollToTopOpacity, scale: scrollToTopScale }}
           transition={{ duration: 0.3 }}
         >
           <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={handleScrollToTop}
             className="bg-primary hover:bg-primary/90 text-primary-foreground p-4 rounded-full shadow-lg hover:shadow-primary/25 transition-all duration-300"
             whileHover={{ scale: 1.1, rotate: 360 }}
             whileTap={{ scale: 0.95 }}

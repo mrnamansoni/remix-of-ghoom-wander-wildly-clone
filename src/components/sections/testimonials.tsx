@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     platform: "TripAdvisor",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/TripAdvisor_logo.svg",
+    logo: "/TripAdvisor_logo.svg",
     rating: 5,
     reviewCount: "3,750",
     quote: "Best budget travel agency in India. Professional service and incredible destinations.",

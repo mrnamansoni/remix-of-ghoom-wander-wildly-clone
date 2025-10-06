@@ -3,7 +3,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, type Transition } from "framer-motion";
 import { useRef } from "react";
 import { PixelTrail } from "@/components/ui/pixel-trail"
 import { useScreenSize } from "@/components/hooks/use-screen-size"
@@ -25,17 +25,17 @@ const TaglineSection = () => {
   };
 
   const wordVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 30,
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.6, 
-        ease: "easeOut" 
-      }
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      } as Transition
     }
   };
 
@@ -46,7 +46,7 @@ const TaglineSection = () => {
         duration: 4,
         repeat: Infinity,
         ease: "easeInOut"
-      }
+      } as Transition
     }
   };
 

@@ -4,7 +4,9 @@ import Header from "@/components/sections/header";
 import HeroSection from "@/components/sections/hero";
 import TaglineSection from "@/components/sections/tagline";
 import DestinationsCarousel from "@/components/sections/destinations-carousel";
-import FeaturedPackages from "@/components/sections/featured-packages";
+import dynamic from "next/dynamic";
+
+const FeaturedPackages = dynamic(() => import("@/components/sections/featured-packages"), { ssr: false });
 import Destinations from "@/components/sections/destinations";
 import WhyChooseUs from "@/components/sections/why-choose-us";
 import CommunityTrips from "@/components/sections/community-trips";

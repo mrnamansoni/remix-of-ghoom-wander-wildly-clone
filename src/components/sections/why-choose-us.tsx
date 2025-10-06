@@ -13,7 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, type Transition } from "framer-motion";
 import { useRef } from "react";
 
 interface Feature {
@@ -85,7 +85,7 @@ const features: Feature[] = [
 export default function WhyChooseUs() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const { scrollY } = useScroll();
+  const { scrollY } = useScroll({ target: ref });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -100,12 +100,12 @@ export default function WhyChooseUs() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9, rotateX: -15 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
       rotateX: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.6, ease: "easeOut" } as Transition
     }
   };
 

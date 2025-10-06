@@ -124,7 +124,7 @@ export default function HeroSection() {
 
       {/* Masked Text at Top Center - FIXED MOBILE SIZING */}
       <motion.div
-        className="absolute top-16 sm:top-20 md:top-24 left-0 right-0 z-30 flex flex-col items-center justify-center px-4"
+        className="absolute top-10 sm:top-10 md:top-10 left-0 right-0 z-30 flex flex-col items-center justify-center px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.8 }}
@@ -132,7 +132,7 @@ export default function HeroSection() {
 
         {/* First line: "Ghoomo" - Better mobile scaling */}
         <h1
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[140px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight"
+          className="text-7xl sm:text-8xl md:text-8xl lg:text-9xl xl:text-[150px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
@@ -150,7 +150,7 @@ export default function HeroSection() {
         
         {/* Second line: "Saste Me" - Better mobile scaling */}
         <h1
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[110px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight mt-1"
+          className="text-6xl sm:text-7xl md:text-7xl lg:text-8xl xl:text-[120px] font-bold bg-clip-text text-transparent transition-all duration-200 whitespace-nowrap leading-tight md:mt-[-10px]"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",

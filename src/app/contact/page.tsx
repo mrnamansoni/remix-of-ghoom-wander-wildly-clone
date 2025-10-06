@@ -94,7 +94,7 @@ export default function ContactPage() {
                     className="flex items-start space-x-4 p-6 bg-card rounded-lg hover:scale-105 transition-transform shadow-md hover:shadow-primary/20"
                     whileHover={{ x: 5 }}
                   >
-                    <item.icon className={`w-6 h-6 mt-1 ${item.color}`} />
+                    <item.icon className={`w-6 h-6 mt-1`} />
                     <div>
                       <p className="font-semibold text-lg">{item.label}</p>
                       <p className="text-muted-foreground">{item.value}</p>

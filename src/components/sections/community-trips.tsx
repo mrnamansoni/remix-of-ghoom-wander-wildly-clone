@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Star, Users, CalendarDays, Plus } from "lucide-react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, motionValue, type Variants } from "framer-motion";
 import { useRef } from "react";
 
 interface Trip {
@@ -153,28 +153,27 @@ const TripCard = ({ trip }: { trip: Trip }) => (
   </div>
 );
 
-
 export default function CommunityTrips() {
-  const ref = useRef(null);
+  const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
+    target: sectionRef,
   });
+  
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, x: -100 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.8, ease: "easeInOut" }
     }
   };
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 overflow-hidden" style={{ y: backgroundY }}>
+    <section ref={sectionRef} className="relative py-16 sm:py-20 overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5"
         animate={{ 
@@ -182,6 +181,7 @@ export default function CommunityTrips() {
           opacity: [0.5, 0.3, 0.5]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        style={{ y: backgroundY }}
       />
       
       <div className="container mx-auto px-4 relative z-10">
